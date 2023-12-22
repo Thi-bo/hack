@@ -77,7 +77,7 @@
                     <div class="card category_web">
                         <div class="card-header solved" data-target="#problem_id_{{ $question->id }}" data-toggle="collapse" aria-expanded="false" aria-controls="problem_id_{{ $question->id }}">
                             {{ $question->titre }} <span class="badge">{{ $question->submissions->where('solved', 1)->count() > 0 ? 'solved' : '' }}</span> <span class="badge" style="background-color:#ef1d9b94">{{ $question->points }} points</span>
-                            <span class="badge" style="background-color:#f9751594">{{ $question->category }}</span>
+                            <span class="badge" style="background-color:#ef121b94">{{ $question->category }}</span>
                         </div>
                         <div id="problem_id_{{ $question->id }}" class="collapse card-body">
                             <blockquote class="card-blockquote">
@@ -89,8 +89,8 @@
                                 <a target="_blank" href="#!" class="btn btn-outline-secondary btn-shadow"><span class="fa fa-download mr-2"></span>Download</a>
                                  
 
-                                    <a href="#" data-toggle="modal" data-target="#hint" data-id="{{ $question->id }}" data-hint="{{ $question->hint }}" class="btn btn-outline-secondary hint-button btn-shadow">
-                                        <span class="far fa-lightbulb mr-2"></span>Hint
+                                    <a href="#" data-toggle="modal" data-target="#hint" data-cout="{{ $question->hint_point }}" title="Cliquez pour afficher l'indice" data-id="{{ $question->id }}" class="btn btn-outline-secondary hint-button btn-shadow">
+                                        <span class="far fa-lightbulb "></span>Hint<span class="badge" style="background-color:#f9aa1594">- {{ $question->hint_point }}</span>
                                     </a>
                              
                                 <form method="post" action="{{ route('check_flag') }}" enctype="multipart/form-data">
@@ -147,44 +147,47 @@
 <!-- Dans votre fichier Blade, ajoutez ceci à l'intérieur de la section script -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Dans votre section script -->
+
+
 <script>
     $(document).ready(function () {
-        $('.hint-button').click(function () {
-            var questionId = $(this).data('id');
-            
+    $('.hint-button').click(function () {
+        var questionId = $(this).data('id');
+        var hintCout = $(this).data('cout'); // Assurez-vous d'avoir l'attribut data-hint-cout dans votre HTML
+        
+        // Demander confirmation à l'utilisateur avec le coût de l'indice
+        var confirmHint = window.confirm('Êtes-vous sûr de vouloir afficher l\'indice ? Le coût du hint sera de ' + hintCout + ' points.');
+
+        // Si l'utilisateur confirme
+        if (confirmHint) {
             // Stocker une référence au modal
             var hintModal = $('#hint');
 
             // Exécuter la requête AJAX
             $.ajax({
-                url: '/get-hint', // L'URL de votre endpoint pour obtenir l'indice
+                url: '/get-hint',
                 method: 'GET',
                 data: { id: questionId },
                 success: function (response) {
-                      console.log('Indice récupéré :', response.hint);
+                    
                     // Mettre à jour le contenu du modal avec l'indice
                     $('#hintContent').text(response.hint);
                     
                     // Afficher le modal
-                    console.log(response.hint);
-
-                    
+                    hintModal.modal('show');
                 },
                 error: function (error) {
                     console.log('Erreur lors de la requête AJAX : ', error);
                 }
             });
-        });
+        }
     });
+});
+
 </script>
 
 
-        <!-- <script>
-            $(document).on('click', '[data-target="#hint"]', function() {
-                var hint = $(this).data('hint');
-                $('#hintContent').text(hint);
-            });
-        </script> -->
+
 </body>
 
 </html>

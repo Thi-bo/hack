@@ -15,6 +15,7 @@ class UserProfile extends Model
         'latest_sub_time',
         'totlesub',
         'password',
+        'name',
     ];
 
      protected $primaryKey = 'id';
@@ -28,5 +29,10 @@ class UserProfile extends Model
         static::creating(function ($model) {
             $model->id = Str::random(8);
         });
+    }
+
+      public function user()
+    {
+        return $this->belongsTo(User::class ,'user_id');
     }
 }

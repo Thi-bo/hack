@@ -18,6 +18,8 @@ return new class extends Migration
   $table->string('question_id');
             $table->foreign('question_id')->references('id')->on('questions');        $table->integer('curr_score');
         $table->string('sub_time');
+        $table->boolean('hinted')->default(false);
+
         $table->boolean('solved');
         $table->timestamps();
         });

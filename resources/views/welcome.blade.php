@@ -47,8 +47,8 @@
                         </div>
                         <div class="navbar-nav ml-auto">
                             <a href="index.html" class="p-3 text-decoration-none text-white bold">Home</a>
-                            <a href="about.html" class="p-3 text-decoration-none text-light bold">About</a>
-                            <a href="hackerboard.html" class="p-3 text-decoration-none text-light bold">Hackerboard</a>
+                            <a  class="p-3 text-decoration-none text-light bold">About</a>
+                            <a href="{{route('leaderboard')}}"  class="p-3 text-decoration-none text-light bold">Hackerboard</a>
                            <a href="{{route('login')}} "class="p-3 text-decoration-none text-light bold">Login</a>
                             <a href="{{route('register')}} "class="p-3 text-decoration-none text-light bold">Register</a>
                         </div>

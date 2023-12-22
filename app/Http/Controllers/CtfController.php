@@ -13,6 +13,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\Console\Question\Question;
 
 class CtfController extends Controller
 
@@ -93,8 +95,10 @@ class CtfController extends Controller
 
         $solved = Submission::where('question_id', $quest->id)
             ->where('user_id', $userProfile->id)
+            ->where('solved', true)
             ->first();
 
+           
         if ($flag == $quest->flag) {
             if (!$solved) {
                 $solved = new Submission();
@@ -129,36 +133,89 @@ class CtfController extends Controller
 }
 
 public function hint(Request $request) {
-            $question = Questions::find($request->input('id'));
-            $hint = $question->Hint;
-            $questionPoints = $question->points;
+    $question = Questions::find($request->input('id'));
+    $hint = $question->hint;
+    $hintsPoint = $question->hint_point;
 
-            $user = Auth::user(); // Utilisateur connecté
-            $userProfile = UserProfile::where('user_id', $user->id)->first();
-dd($hint);
-            try {
-                // Vérifier si la question a déjà été résolue par l'utilisateur
-                $solved = Submission::where('question_id', $question->id)
-                    ->where('user_id', $userProfile->id)
-                    ->first();
+    $user = Auth::user(); // Utilisateur connecté
+    $userProfile = UserProfile::where('user_id', $user->id)->first();
 
-                return response()->json(['hint' => $hint]);
-            } catch (ModelNotFoundException $e) {
-                // La question n'a pas encore été résolue par l'utilisateur
-                $solved = new Submission();
-                $userProfile->score -= $questionPoints * 0.1;
-                $solved->question_id = $question->id;
-                $solved->user_id = $userProfile->id;
-                $solved->curr_score = $userProfile->score;
-                $solved->save();
-                $userProfile->save();
+    // Vérifier si la question a déjà été résolue par l'utilisateur
+    $SubmissionSolved = Submission::where('question_id', $question->id)
+        ->where('user_id', $userProfile->id)
+        ->where('solved', 1)
+        ->where('hinted', 0)
+        ->first();
+         $SubmissionHinted= Submission::where('question_id', $question->id)
+        ->where('user_id', $userProfile->id)
+        ->where('solved', 0)
+        ->where('hinted', 1)
+        ->first();
 
-                return response()->json(['hint' => $hint]);
-            }
+    if ($SubmissionSolved or $SubmissionHinted) {
+        // Si la question a déjà été résolue, renvoyer l'indice
+        return response()->json(['hinccct' => $hint]);
+    } else {
+        // Si la question n'a pas encore été résolue
+        $submission = new Submission();
+        $userProfile->score -= $hintsPoint;
+        $submission->question_id = $question->id;
+        $submission->user_id = $userProfile->id;
+        $sec = $this->calc();
+        $submission->solved = 0;
+         $submission->hinted = 1;
+        $submission->sub_time = gmdate("H:i:s", $sec['diff']);
+        $submission->curr_score = $userProfile->score;
         
+        // Enregistrer la soumission ou mettre à jour l'enregistrement existant s'il existe
+          $userProfile->save();
+        $submission->save();
 
-        return view('ctf.404'); // Afficher la page 404 en cas de méthode non autorisée
+      
+
+        // Renvoyer l'indice
+        return response()->json(['hint' => $hint]);
     }
+
+    // La section suivante n'est atteinte que si la méthode n'est pas autorisée
+    return view('ctf.404');
+}
+
+
+    public function leaderboard(Request $request) {
+        // Obtenez les utilisateurs triés par score et temps de dernière soumission
+        $sortedUsers = UserProfile::orderByDesc('score')
+            ->orderBy('last_sub_time', 'desc')
+            ->get();
+
+        $submissions = Submission::select('question_id', 'user_id', 'sub_time')
+            ->orderBy('user_id')
+            ->orderBy('sub_time')
+            ->get();
+
+        $submissionsByUser = [];
+
+
+        foreach ($submissions as $submission) {
+            $submissionsByUser[$submission->user_id][] = $submission;
+        }
+
+        $userSubmissions = [];
+
+        foreach ($sortedUsers as $user) {
+            $userId = $user->id;
+
+            // Vérifiez si des soumissions existent pour cet utilisateur
+            if (isset($submissionsByUser[$userId])) {
+                $userSubmissions[$userId] = $submissionsByUser[$userId];
+            } else {
+                $userSubmissions[$userId] = [];
+            }
+        }
+
+return view('hackerboard', compact('userSubmissions', 'sortedUsers'));
+    }
+
 
 
 }

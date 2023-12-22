@@ -22,7 +22,7 @@ return new class extends Migration
           $table->string('file')->nullable();
           $table->string('category');
           $table->integer('solved_by')->nullable();
-                    $table->string('flag')->default='pict_CTF{}';
+                    $table->string('flag')->default='hack_CTF{}';
 
         });
     }

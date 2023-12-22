@@ -13,8 +13,8 @@ class Submission extends Model
 
     protected $fillable = ['id',
         'question_id',
-        'email',
-        'password',
+        'user_id',
+        'curr_score','sub_time','solved'
     ];
 
      protected $primaryKey = 'id';
