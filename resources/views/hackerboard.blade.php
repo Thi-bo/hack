@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/css.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
 </head>
@@ -36,7 +37,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <a href="index.html" class="pl-md-0 p-3 text-decoration-none text-light">
-                            <h3 class="bold"><span class="color_danger">LAKSHYA</span><span class="color_white">CTF</span></h3>
+                            <h3 class="bold"><span class="color_danger">Hack</span><span class="color_white">CTF</span></h3>
                         </a>
                     </div>
                     <div class="navbar-nav ml-auto">
@@ -44,7 +45,15 @@
                         <a href="index.html" class="p-3 text-decoration-none text-white bold">Home</a>
                         <a class="p-3 text-decoration-none text-light bold">About</a>
                         <a href="{{route('leaderboard')}}" class="p-3 text-decoration-none text-light bold">Hackerboard</a>
-                        <a class="p-3 text-decoration-none text-light bold">Logout</a>
+                        <a class="p-3 text-decoration-none text-light bold" href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        {{ __('Log Out') }}
+                    </a>
+
+                    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+                        @csrf
+                    </form>
+
                     </div>
                 </div>
             </nav>

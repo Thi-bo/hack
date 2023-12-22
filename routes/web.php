@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -33,7 +33,7 @@ Route::middleware(['auth'])->group(function () {
         return view('instructions');
     })->name('instructions');
 
-   
+
 
 });
 
@@ -45,6 +45,6 @@ Route::get('/leaderboard', [CtfController::class, 'leaderboard'])->name('leaderb
 
 
     });
-    
+
 
 require __DIR__.'/auth.php';
