@@ -210,5 +210,54 @@ public function hint(Request $request) {
 }
 
 
+ public function storeQ(Request $request)
+{
+    try {
+        // Validation des données, y compris le champ de fichier
+        $validatedData = $request->validate([
+            'points' => 'required|numeric',
+            'titre' => 'required|string',
+            'flag' => 'required|string',
+            'description' => 'required|string',
+            'level' => 'required',
+            'category' => 'required',
+             'category' => 'required',
+
+            'file' => 'nullable|file',
+           
+        ]);
+
+        // Gestion du fichier
+        $file = null;
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileName = uniqid() . '_' . $file->getClientOriginalName();
+            $file->storeAs('uploads/questions', $fileName, 'public');
+        }
+
+        // Création d'une nouvelle instance de Question avec les données validées
+        $question = new Questions([
+            'points' => $validatedData['points'],
+            'titre' => $validatedData['titre'],
+            'description' => $validatedData['description'],
+            'level' => $validatedData['level'],
+            'hint' => $validatedData['hinthint'],
+             'flag' => $validatedData['flag'],
+
+            'hint_point' => $validatedData['hint_point'],
+            'file' => $fileName, 
+            'category' => $validatedData['category'],
+        ]);
+
+        $question->save();
+
+        return redirect()->back()->with('success', 'Question enregistrée avec succès!');
+    } catch (\Exception $e) {
+        // Gérer l'exception ici (par exemple, journalisation, redirection avec un message d'erreur, etc.)
+        return redirect()->back()->with('error', 'Une erreur est survenue lors de l\'enregistrement de la question.',$e);
+    }
+}
+
 
 }

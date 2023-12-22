@@ -42,6 +42,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/check', [CtfController::class, 'check'])->name('check_flag');
 Route::get('/get-hint', [CtfController::class, 'hint'])->name('get-hint');
 Route::get('/leaderboard', [CtfController::class, 'leaderboard'])->name('leaderboard');
+Route::post('/store-question', [CtfController::class, 'storeQ'])->name('store.question');
+
 
 
     });
