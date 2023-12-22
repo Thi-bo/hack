@@ -123,7 +123,7 @@ class CtfController extends Controller
 
                 $solved->solved = 1;
                 $userProfile->totlesub += 1;
-
+                $quest->save();
                 $userProfile->save();
                 $solved->save();
 
@@ -136,7 +136,7 @@ class CtfController extends Controller
         }
     } catch (\Exception $e) {
         // Gérer l'exception ici
-        return redirect()->back()->with('status', 'error')->with('message', $e->getMessage());
+        return redirect()->back();
     }
 }
 
@@ -162,7 +162,7 @@ public function hint(Request $request) {
 
     if ($SubmissionSolved or $SubmissionHinted) {
         // Si la question a déjà été résolue, renvoyer l'indice
-        return response()->json(['hinccct' => $hint]);
+        return response()->json(['hint' => $hint]);
     } else {
         // Si la question n'a pas encore été résolue
         $submission = new Submission();

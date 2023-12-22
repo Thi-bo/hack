@@ -14,7 +14,7 @@ class Questions extends Model
     protected $fillable = [
         'id',
         'question_id',
-        'email',
+        'solved_by',
         'password',
     ];
 

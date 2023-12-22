@@ -23,7 +23,7 @@ return new class extends Migration
           $table->string('category');
           $table->integer('solved_by')->nullable();
                     $table->string('flag')->default='hack_CTF{}';
-
+  $table->timestamps();
         });
     }
 
