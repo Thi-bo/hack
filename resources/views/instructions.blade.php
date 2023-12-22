@@ -5,10 +5,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Hack CTF</title>
-
-
- 
         <link rel="stylesheet" href="{{ asset('assets/css/bootstrap4-neon-glow.min.css') }}">
 
     <link rel='stylesheet' href='//cdn.jsdelivr.net/font-hack/2.020/css/hack.min.css'>
@@ -40,11 +38,18 @@
                             </a>
                         </div>
                       <div class="navbar-nav ml-auto">
-                        
+
                             <a href="index.html" class="p-3 text-decoration-none text-white bold">Home</a>
                             <a  class="p-3 text-decoration-none text-light bold">About</a>
                             <a href="{{route('leaderboard')}}"  class="p-3 text-decoration-none text-light bold">Hackerboard</a>
-                           <a class="p-3 text-decoration-none text-light bold">Logout</a>
+                            <a class="p-3 text-decoration-none text-light bold" href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        {{ __('Log Out') }}
+                    </a>
+
+                    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+                        @csrf
+                    </form>
                     </div>
                     </div>
                 </nav>
