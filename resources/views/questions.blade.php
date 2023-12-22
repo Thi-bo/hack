@@ -20,30 +20,30 @@
 </head>
 
 <body>
-     <div class="navbar-dark text-white">
-            <div class="container">
-                <nav class="navbar px-0 navbar-expand-lg navbar-dark">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div class="navbar-nav">
-                            <a href="index.html" class="pl-md-0 p-3 text-decoration-none text-light">
-                                <h3 class="bold"><span class="color_danger">HACK</span><span class="color_white">CTF</span></h3>
-                            </a>
-                        </div>
-                        <div class="navbar-nav ml-auto">
-                        
-                            <a href="index.html" class="p-3 text-decoration-none text-white bold">Home</a>
-                            <a  class="p-3 text-decoration-none text-light bold">About</a>
-                            <a href="{{route('leaderboard')}}"  class="p-3 text-decoration-none text-light bold">Hackerboard</a>
-                           <a class="p-3 text-decoration-none text-light bold">Logout</a>
-                    </div>  
+    <div class="navbar-dark text-white">
+        <div class="container">
+            <nav class="navbar px-0 navbar-expand-lg navbar-dark">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a href="index.html" class="pl-md-0 p-3 text-decoration-none text-light">
+                            <h3 class="bold"><span class="color_danger">HACK</span><span class="color_white">CTF</span></h3>
+                        </a>
                     </div>
-                </nav>
+                    <div class="navbar-nav ml-auto">
 
-            </div>
+                        <a href="index.html" class="p-3 text-decoration-none text-white bold">Home</a>
+                        <a class="p-3 text-decoration-none text-light bold">About</a>
+                        <a href="{{route('leaderboard')}}" class="p-3 text-decoration-none text-light bold">Hackerboard</a>
+                        <a class="p-3 text-decoration-none text-light bold">Logout</a>
+                    </div>
+                </div>
+            </nav>
+
         </div>
+    </div>
 
     <div class="jumbotron bg-transparent mb-0 pt-0 radius-0">
         <div class="container">
@@ -76,18 +76,18 @@
                 <div class="col-md-4 mb-3">
                     <div class="card category_web">
                         <div class="card-header solved" data-target="#problem_id_{{ $question->id }}" data-toggle="collapse" aria-expanded="false" aria-controls="problem_id_{{ $question->id }}">
-                            {{ $question->titre }} 
+                            {{ $question->titre }}
                             <span class="badge">
-    @php
-        $userProfileId = Auth::user()->userProfile->id;
-        $solvedSubmissionsCount = $question->submissions
-            ->where('user_id', $userProfileId)
-            ->where('solved', 1)
-            ->count();
-        echo $solvedSubmissionsCount > 0 ? 'solved' : '';
-    @endphp
-</span>
-                             <span class="badge" style="background-color:#ef1d9b94">{{ $question->points }} points</span>
+                                @php
+                                $userProfileId = Auth::user()->userProfile->id;
+                                $solvedSubmissionsCount = $question->submissions
+                                ->where('user_id', $userProfileId)
+                                ->where('solved', 1)
+                                ->count();
+                                echo $solvedSubmissionsCount > 0 ? 'solved' : '';
+                                @endphp
+                            </span>
+                            <span class="badge" style="background-color:#ef1d9b94">{{ $question->points }} points</span>
                             <span class="badge" style="background-color:#ef121b94">{{ $question->category }}</span>
                         </div>
                         <div id="problem_id_{{ $question->id }}" class="collapse card-body">
@@ -98,12 +98,12 @@
                                 </div>
                                 <p>{{ $question->description }}</p>
                                 <a target="_blank" href="#!" class="btn btn-outline-secondary btn-shadow"><span class="fa fa-download mr-2"></span>Download</a>
-                                 
 
-                                    <a href="#" data-toggle="modal" data-target="#hint" data-cout="{{ $question->hint_point }}" title="Cliquez pour afficher l'indice" data-id="{{ $question->id }}" class="btn btn-outline-secondary hint-button btn-shadow">
-                                        <span class="far fa-lightbulb "></span>Hint<span class="badge" style="background-color:#f9aa1594">- {{ $question->hint_point }}</span>
-                                    </a>
-                             
+
+                                <a href="#" data-toggle="modal" data-target="#hint" data-cout="{{ $question->hint_point }}" title="Cliquez pour afficher l'indice" data-id="{{ $question->id }}" class="btn btn-outline-secondary hint-button btn-shadow">
+                                    <span class="far fa-lightbulb "></span>Hint<span class="badge" style="background-color:#f9aa1594">- {{ $question->hint_point }}</span>
+                                </a>
+
                                 <form method="post" action="{{ route('check_flag') }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="input-group mt-3">
@@ -155,47 +155,48 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-<!-- Dans votre fichier Blade, ajoutez ceci à l'intérieur de la section script -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Dans votre section script -->
+        <!-- Dans votre fichier Blade, ajoutez ceci à l'intérieur de la section script -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- Dans votre section script -->
 
 
-<script>
-    $(document).ready(function () {
-    $('.hint-button').click(function () {
-        var questionId = $(this).data('id');
-        var hintCout = $(this).data('cout'); // Assurez-vous d'avoir l'attribut data-hint-cout dans votre HTML
-        
-        // Demander confirmation à l'utilisateur avec le coût de l'indice
-        var confirmHint = window.confirm('Êtes-vous sûr de vouloir afficher l\'indice ? Le coût du hint sera de ' + hintCout + ' points.');
+        <script>
+            $(document).ready(function() {
+                $('.hint-button').click(function() {
+                    var questionId = $(this).data('id');
+                    var hintCout = $(this).data('cout'); // Assurez-vous d'avoir l'attribut data-hint-cout dans votre HTML
 
-        // Si l'utilisateur confirme
-        if (confirmHint) {
-            // Stocker une référence au modal
-            var hintModal = $('#hint');
+                    // Demander confirmation à l'utilisateur avec le coût de l'indice
+                    var confirmHint = window.confirm('Êtes-vous sûr de vouloir afficher l\'indice ? Le coût du hint sera de ' + hintCout + ' points.');
 
-            // Exécuter la requête AJAX
-            $.ajax({
-                url: '/get-hint',
-                method: 'GET',
-                data: { id: questionId },
-                success: function (response) {
-                    
-                    // Mettre à jour le contenu du modal avec l'indice
-                    $('#hintContent').text(response.hint);
-                    
-                    // Afficher le modal
-                    hintModal.modal('show');
-                },
-                error: function (error) {
-                    console.log('Erreur lors de la requête AJAX : ', error);
-                }
+                    // Si l'utilisateur confirme
+                    if (confirmHint) {
+                        // Stocker une référence au modal
+                        var hintModal = $('#hint');
+
+                        // Exécuter la requête AJAX
+                        $.ajax({
+                            url: '/get-hint',
+                            method: 'GET',
+                            data: {
+                                id: questionId
+                            },
+                            success: function(response) {
+
+                                // Mettre à jour le contenu du modal avec l'indice
+                                $('#hintContent').text(response.hint);
+
+                                // Afficher le modal
+                                hintModal.modal('show');
+                            },
+                            error: function(error) {
+                                console.log('Erreur lors de la requête AJAX : ', error);
+                            }
+                        });
+                    }
+                });
             });
-        }
-    });
-});
-
-</script>
+        </script>
 
 
 
