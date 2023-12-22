@@ -75,7 +75,7 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Challenges Solved</th>
-                                <th>Total Time Taken</th>
+                                <th>Last Submission</th>
                                 <th>Score</th>
                             </tr>
                         </thead>

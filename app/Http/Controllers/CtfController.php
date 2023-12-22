@@ -24,7 +24,7 @@ class CtfController extends Controller
 
     private function tmer()
     {
-        $start = "2023-12-21 00:00:00";
+        $start = "2022-12-22 00:00:00";
         $starttime = new DateTime($start);
 
         // Calculer le nombre total de secondes écoulées depuis minuit
@@ -33,7 +33,8 @@ class CtfController extends Controller
 
     private function timer()
     {
-        $start = "2023-12-21 00:00:00";
+        $start = "2023-12-22 00:00:00";
+       # dd($start);
         return new DateTime($start);
     }
 
@@ -41,15 +42,22 @@ class CtfController extends Controller
     {
         $now = new DateTime(); // Utiliser DateTime pour la date actuelle
         $starttime = $this->timer();
-        $diff = $now->getTimestamp() - $starttime->getTimestamp();
+        $diff = $now->diff($starttime);
         $endtime = $this->timer();
-        $endtime->add(new DateInterval('PT48H')); // Ajouter 48 heures à la date de début
+         $endtime->add(new DateInterval('PT48H')); // Add 48 hours to the start time
+   
+        $total_seconds = $diff->s + $diff->i * 60 + $diff->h * 3600 + $diff->d* 86400; // Calculate total seconds including days
+  #  dd($total_seconds);
+
+    $sub_time = gmdate("j \d\a\y\s H:i:s", $total_seconds); // Format the difference as days, hours, minutes, seconds
+
 
         return [
             'now' => $now,
             'starttime' => $starttime,
             'diff' => $diff,
             'endtime' => $endtime,
+             'total_seconds' => $total_seconds,
         ];
     }
 
@@ -108,8 +116,8 @@ class CtfController extends Controller
                 $solved->curr_score = $userProfile->score;
 
                 $sec = $this->calc();
-
-                $solved->sub_time = gmdate("H:i:s", $sec['diff']);
+                $solved->sub_time = gmdate("j \d\a\y\s H:i:s",  $sec['total_seconds']);
+;
                 $userProfile->last_sub_time = $solved->sub_time;
                 $quest->solved_by += 1;
 
@@ -164,7 +172,7 @@ public function hint(Request $request) {
         $sec = $this->calc();
         $submission->solved = 0;
          $submission->hinted = 1;
-        $submission->sub_time = gmdate("H:i:s", $sec['diff']);
+        $submission->sub_time = gmdate("j \d\a\y\s H:i:s",  $sec['total_seconds']);
         $submission->curr_score = $userProfile->score;
         
         // Enregistrer la soumission ou mettre à jour l'enregistrement existant s'il existe
