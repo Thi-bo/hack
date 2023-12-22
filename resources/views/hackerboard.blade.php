@@ -8,13 +8,13 @@
     <title>Hack CTF</title>
 
 
- 
-        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap4-neon-glow.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap4-neon-glow.min.css') }}">
 
     <link rel='stylesheet' href='//cdn.jsdelivr.net/font-hack/2.020/css/hack.min.css'>
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/all.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/css/css.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/css.css') }}">
 
 
 </head>
@@ -31,8 +31,8 @@
         <div class="container">
             <nav class="navbar px-0 navbar-expand-lg navbar-dark">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <a href="index.html" class="pl-md-0 p-3 text-decoration-none text-light">
@@ -40,22 +40,18 @@
                         </a>
                     </div>
                     <div class="navbar-nav ml-auto">
-                        <a href="index.html" class="p-3 text-decoration-none text-light bold">Home</a>
-                        <a href="about.html" class="p-3 text-decoration-none text-light bold">About</a>
-                        <a href="hackerboard.html" class="p-3 text-decoration-none text-white bold">Hackerboard</a>
-                        <a href="login.html" class="p-3 text-decoration-none text-light bold">Login</a>
-                        <a href="register.html" class="p-3 text-decoration-none text-light bold">Register</a>
+                        
+                            <a href="index.html" class="p-3 text-decoration-none text-white bold">Home</a>
+                            <a  class="p-3 text-decoration-none text-light bold">About</a>
+                            <a href="{{route('leaderboard')}}"  class="p-3 text-decoration-none text-light bold">Hackerboard</a>
+                           <a class="p-3 text-decoration-none text-light bold">Logout</a>
                     </div>
                 </div>
             </nav>
 
         </div>
     </div>
-<div class="row justify-content-center my-5">
-                        <div class="col-xl-10">
-                            <canvas id="myChart"></canvas>
-                        </div>
-                    </div>
+
     <div class="jumbotron bg-transparent mb-0 pt-3 radius-0">
         <div class="container">
             <div class="row">
@@ -66,7 +62,7 @@
                     </p>
                     <div class="row justify-content-center my-5">
                         <div class="col-xl-10">
-                            <canvas id="myChart"></canvas>
+            <canvas id="scoresChart" width="200" height="50"></canvas>
                         </div>
                     </div>
                 </div>
@@ -83,32 +79,38 @@
                                 <th>Score</th>
                             </tr>
                         </thead>
-                         <tbody>
-                @foreach($sortedUsers as $index => $userData)
-                    <tr>
-                        <th scope="row">{{ $index + 1 }}</th>
-                        <td>{{ $userData->user->name  }}</td>
-                        <td>{{ $userData->totlesub }}</td>
-                        <td>{{ $userData->last_sub_time }}</td>
-                        <td>{{ $userData->score }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
+                        <tbody>
+                            @foreach($sortedUsers as $index => $userData)
+                            <tr>
+                                <th scope="row">{{ $index + 1 }}</th>
+                                <td>{{ $userData->user->name  }}</td>
+                                <td>{{ $userData->totlesub }}</td>
+                                <td>{{ $userData->last_sub_time }}</td>
+                                <td>{{ $userData->score }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 
- <script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+    <script>
         $(document).ready(function () {
             var ctx = document.getElementById('scoresChart').getContext('2d');
 
             var data = {
-                labels: {!! json_encode($sortedUsers->pluck('name')) !!},
+                labels: <?= json_encode($chartData['labels']) ?>,
                 datasets: [{
                     label: 'Scores',
-                    data: {!! json_encode($sortedUsers->pluck('last_sub_time')) !!},
+                    data: <?= json_encode($chartData['data']) ?>,
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
@@ -126,21 +128,20 @@
             var scoresChart = new Chart(ctx, {
                 type: 'bar',
                 data: data,
-                options: options
+                options: options,
+                plugins: [{
+                afterLayout: function(chart) {
+                    // Réduire la largeur des barres (ajuster la valeur 0.5 selon vos besoins)
+                    chart.data.datasets.forEach(function(dataset) {
+                        dataset.barPercentage = 0.1;
+                    });
+                }
+            }]
             });
         });
     </script>
+    
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   
 
 
 </body>

@@ -28,5 +28,10 @@ class Submission extends Model
         static::creating(function ($model) {
             $model->id = Str::random(8);
         });
+
+    }
+     public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

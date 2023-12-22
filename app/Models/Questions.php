@@ -11,13 +11,14 @@ use Illuminate\Support\Str;
 class Questions extends Model
 {
     use HasFactory;
-      protected $fillable = ['id',
+    protected $fillable = [
+        'id',
         'question_id',
         'email',
         'password',
     ];
 
-     protected $primaryKey = 'id';
+    protected $primaryKey = 'id';
 
     public $incrementing = false;
 
@@ -34,6 +35,5 @@ class Questions extends Model
     {
         return $this->hasMany(Submission::class, 'question_id');
     }
-
-        
+  
 }

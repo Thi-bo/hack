@@ -57,4 +57,15 @@ class User extends Authenticatable
             $model->id = Str::random(8);
         });
     }
+
+    public function userProfile()
+    {
+        return $this->hasOne(UserProfile::class);
+    }
+
+     public function submissions()
+    {
+        return $this->hasMany(Submission::class);
+    }
+ 
 }

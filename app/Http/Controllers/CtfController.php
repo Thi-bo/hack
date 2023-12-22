@@ -68,7 +68,7 @@ class CtfController extends Controller
        # dd($isExpired);
         if (!$isExpired) {
             $users = Auth::user();
-            $user = User::where('name', $users->id)->first();
+            $user = User::where('id', $users->id)->first();
             $userprofile = UserProfile::where('user_id', $users->id)->first();
             $questions = Questions::get();
             $submission = Submission::where('user_id', $users->id)->orderBy('question_id')->get();
@@ -182,39 +182,24 @@ public function hint(Request $request) {
 }
 
 
-    public function leaderboard(Request $request) {
-        // Obtenez les utilisateurs triés par score et temps de dernière soumission
-        $sortedUsers = UserProfile::orderByDesc('score')
-            ->orderBy('last_sub_time', 'desc')
-            ->get();
+  public function leaderboard(Request $request) {
+    // Obtenez les utilisateurs triés par score et temps de dernière soumission
+    $sortedUsers = UserProfile::with('user')
+        ->orderByDesc('score')
+        ->orderBy('last_sub_time', 'desc')
+        ->get();
 
-        $submissions = Submission::select('question_id', 'user_id', 'sub_time')
-            ->orderBy('user_id')
-            ->orderBy('sub_time')
-            ->get();
+      
 
-        $submissionsByUser = [];
+    // Préparez les données pour le graphique
+    $chartData = [
+        'labels' => $sortedUsers->pluck('user.name')->toArray(),
+        'data' => $sortedUsers->pluck('score')->toArray(),
+    ];
+     
 
-
-        foreach ($submissions as $submission) {
-            $submissionsByUser[$submission->user_id][] = $submission;
-        }
-
-        $userSubmissions = [];
-
-        foreach ($sortedUsers as $user) {
-            $userId = $user->id;
-
-            // Vérifiez si des soumissions existent pour cet utilisateur
-            if (isset($submissionsByUser[$userId])) {
-                $userSubmissions[$userId] = $submissionsByUser[$userId];
-            } else {
-                $userSubmissions[$userId] = [];
-            }
-        }
-
-return view('hackerboard', compact('userSubmissions', 'sortedUsers'));
-    }
+    return view('hackerboard', compact('sortedUsers', 'chartData'));
+}
 
 
 
