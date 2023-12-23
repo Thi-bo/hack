@@ -33,7 +33,7 @@
                     <div class="navbar-nav ml-auto">
 
                         <a href="{{ route('welcome') }}" class="p-3 text-decoration-none text-white bold">Home</a>
-                        <a class="p-3 text-decoration-none text-light bold">About</a>
+                            <a   href="{{ route('about') }}"  class="p-3 text-decoration-none text-light bold">About</a>
                         <a href="{{route('leaderboard')}}" class="p-3 text-decoration-none text-light bold">Hackerboard</a>
                         <a href="{{route('questions')}}" class="p-3 text-decoration-none text-light bold">Challenges</a>
 

@@ -20,6 +20,12 @@ use App\Http\Controllers\ChallengesController;
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+Route::get('/404', function () {
+    return view('404');
+})->name('404');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -34,39 +40,31 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/instructions', function () {
         return view('instructions');
     })->name('instructions');
-
-
-
 });
 
 Route::middleware('auth')->group(function () {
     Route::get('/questions', [CtfController::class, 'Quest'])->name('questions');
-        Route::post('/check', [CtfController::class, 'check'])->name('check_flag');
-Route::get('/get-hint', [CtfController::class, 'hint'])->name('get-hint');
-Route::get('/leaderboard', [CtfController::class, 'leaderboard'])->name('leaderboard');
-Route::get('/download-file/{questionId}', [CtfController::class, 'downloadFile'])->name('download.file');
+    Route::post('/check', [CtfController::class, 'check'])->name('check_flag');
+    Route::get('/get-hint', [CtfController::class, 'hint'])->name('get-hint');
+    Route::get('/leaderboard', [CtfController::class, 'leaderboard'])->name('leaderboard');
+    Route::get('/download-file/{questionId}', [CtfController::class, 'downloadFile'])->name('download.file');
+});
 
+//Route connexion admin
 
-
-
-    });
-
-    //Route connexion admin
-
-    Route::get('/admin/login_hacktivits@@2022', [AdminController::class, 'login']);
-    Route::post('/admin/login_hacktivits@@2022', [AdminController::class, 'store'])->name('admin.login');
+Route::get('/admin/login_hacktivits@@2022', [AdminController::class, 'login']);
+Route::post('/admin/login_hacktivits@@2022', [AdminController::class, 'store'])->name('admin.login');
 Route::post('/deconnexion', [AdminController::class, 'deconnexion'])->name('admin.deconnexion');
 
 //Middleware admin
 
-    Route::middleware('isAdmin')->group(function () {
+Route::middleware('isAdmin')->group(function () {
 
-        Route::get('/admin/dashboard_hacktivits@@2022', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/dashboard_hacktivits@@2022', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
-        Route::resource('challenges', ChallengesController::class);
+    Route::resource('challenges', ChallengesController::class);
 
-        Route::post('/store-question', [CtfController::class, 'storeQ'])->name('store.question');
-
+    Route::post('/store-question', [CtfController::class, 'storeQ'])->name('store.question');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
