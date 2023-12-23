@@ -13,17 +13,18 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->string('id', 8)->unique();
-        $table->string('points');
-        $table->string('titre');
-        $table->string('description');
-        $table->string('level');
-         $table->string('hint')->nullable();
-          $table->string('hint_point')-> default='None';
-          $table->string('file')->nullable();
-          $table->string('category');
-          $table->integer('solved_by')->nullable();
-                    $table->string('flag')->default='hack_CTF{}';
-  $table->timestamps();
+            $table->string('points');
+            $table->string('titre');
+            $table->string('description');
+            $table->string('level');
+            $table->string('hint')->nullable();
+            $table->string('hint_point')->default = 'None';
+            $table->string('file')->nullable();
+            $table->string('path')->nullable();
+            $table->string('category');
+            $table->integer('solved_by')->nullable();
+            $table->string('flag')->default = 'hack_CTF{}';
+            $table->timestamps();
         });
     }
 

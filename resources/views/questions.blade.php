@@ -26,15 +26,16 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a href="index.html" class="pl-md-0 p-3 text-decoration-none text-light">
+                        <a href="{{ route('welcome') }}" class="pl-md-0 p-3 text-decoration-none text-light">
                             <h3 class="bold"><span class="color_danger">HACK</span><span class="color_white">CTF</span></h3>
                         </a>
                     </div>
                     <div class="navbar-nav ml-auto">
 
-                        <a href="index.html" class="p-3 text-decoration-none text-white bold">Home</a>
+                        <a href="{{ route('welcome') }}" class="p-3 text-decoration-none text-white bold">Home</a>
                         <a class="p-3 text-decoration-none text-light bold">About</a>
                         <a href="{{route('leaderboard')}}" class="p-3 text-decoration-none text-light bold">Hackerboard</a>
+                        <a href="{{route('questions')}}" class="p-3 text-decoration-none text-light bold">Challenges</a>
                         <a class="p-3 text-decoration-none text-light bold" href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         {{ __('Log Out') }}

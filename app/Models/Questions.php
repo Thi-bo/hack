@@ -11,11 +11,24 @@ use Illuminate\Support\Str;
 class Questions extends Model
 {
     use HasFactory;
+
+    protected $table = 'questions';
+    
     protected $fillable = [
         'id',
-        'question_id',
+       // 'question_id',
         'solved_by',
-        'password',
+        //'password',
+        'points' ,
+        'titre',
+        'description',
+        'level',
+        'hint' ,
+         'flag',
+        'hint_point' ,
+        'file' ,
+        'path' ,
+        'category' ,
     ];
 
     protected $primaryKey = 'id';
@@ -35,5 +48,5 @@ class Questions extends Model
     {
         return $this->hasMany(Submission::class, 'question_id');
     }
-  
+
 }

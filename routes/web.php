@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\CtfController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CtfController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ChallengesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,11 +44,27 @@ Route::middleware('auth')->group(function () {
         Route::post('/check', [CtfController::class, 'check'])->name('check_flag');
 Route::get('/get-hint', [CtfController::class, 'hint'])->name('get-hint');
 Route::get('/leaderboard', [CtfController::class, 'leaderboard'])->name('leaderboard');
-Route::post('/store-question', [CtfController::class, 'storeQ'])->name('store.question');
 
 
 
     });
 
+    //Route connexion admin
+
+    Route::get('/admin/login_hacktivits@@2022', [AdminController::class, 'login']);
+    Route::post('/admin/login_hacktivits@@2022', [AdminController::class, 'store'])->name('admin.login');
+
+
+//Middleware admin
+
+    Route::middleware('isAdmin')->group(function () {
+
+        Route::get('/admin/dashboard_hacktivits@@2022', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
+        Route::resource('challenges', ChallengesController::class);
+
+        Route::post('/store-question', [CtfController::class, 'storeQ'])->name('store.question');
+
+});
 
 require __DIR__.'/auth.php';
