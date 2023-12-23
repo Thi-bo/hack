@@ -223,7 +223,7 @@ class CtfController extends Controller
                 'description' => 'required|string',
                 'level' => 'required',
                 'category' => 'required',
-               // 'file' => 'nullable|file',
+                // 'file' => 'nullable|file',
             ]);
 
             // Gestion du fichier
@@ -255,24 +255,28 @@ class CtfController extends Controller
         }
     }
 
-     public function downloadFile($questionId)
-    {
-        try {
-            // Récupérer la question
-            $question = Questions::findOrFail($questionId);
+    
+    public function downloadFile($questionId)
+{
+    try {
+        // Récupérer la question
+        $question = Questions::findOrFail($questionId);
 
-            // Vérifier si le fichier existe
-            if (Storage::disk('public')->exists("uploads/questions/{$question->file}")) {
-                // Télécharger le fichier
-                return response()->download(storage_path("app/public/uploads/questions/{$question->file}"));
-            } else {
-                // Gérer le cas où le fichier n'existe pas
-                return redirect()->back()->with('error', 'Le fichier associé à cette question n\'existe pas.');
-            }
-        } catch (\Exception $e) {
-            // Gérer l'exception ici (par exemple, journalisation, redirection avec un message d'erreur, etc.)
-            return redirect()->back()->with('error', 'Une erreur est survenue lors du téléchargement du fichier.');
+        // Construire le chemin complet du fichier
+        $filePath = storage_path("app/public/{$question->path}");
+
+        // Vérifier si le fichier existe
+        if (file_exists($filePath)) {
+            // Télécharger le fichier
+            return response()->download($filePath, $question->file);
+        } else {
+            // Gérer le cas où le fichier n'existe pas
+            return redirect()->back()->with('error', 'Le fichier associé à cette question n\'existe pas.');
         }
+    } catch (\Exception $e) {
+        // Gérer l'exception ici (par exemple, journalisation, redirection avec un message d'erreur, etc.)
+        return redirect()->back()->with('error', 'Une erreur est survenue lors du téléchargement du fichier.');
     }
 }
 
+}

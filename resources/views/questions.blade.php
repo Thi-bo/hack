@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Hack CTF</title>
+
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap4-neon-glow.min.css') }}">
 
-    <link rel='stylesheet' href='//cdn.jsdelivr.net/font-hack/2.020/css/hack.min.css'>
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/css.css') }}">
@@ -25,26 +25,25 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                   <div class="navbar-nav">
-                            <a href="{{ route('welcome') }}" class="pl-md-0 p-3 text-decoration-none text-light">
-                                <h3 class="bold"><span class="color_danger">HACK</span><span class="color_white">CTF</span></h3>
-                            </a>
-                        </div>
+                    <div class="navbar-nav">
+                        <a href="{{ route('welcome') }}" class="pl-md-0 p-3 text-decoration-none text-light">
+                            <h3 class="bold"><span class="color_danger">HACK</span><span class="color_white">CTF</span></h3>
+                        </a>
+                    </div>
                     <div class="navbar-nav ml-auto">
 
-                            <a href="{{ route('welcome') }}" class="p-3 text-decoration-none text-white bold">Home</a>
+                        <a href="{{ route('welcome') }}" class="p-3 text-decoration-none text-white bold">Home</a>
                         <a class="p-3 text-decoration-none text-light bold">About</a>
                         <a href="{{route('leaderboard')}}" class="p-3 text-decoration-none text-light bold">Hackerboard</a>
-                            <a href="{{route('questions')}}"  class="p-3 text-decoration-none text-light bold">Challenges</a>
+                        <a href="{{route('questions')}}" class="p-3 text-decoration-none text-light bold">Challenges</a>
 
-                        <a class="p-3 text-decoration-none text-light bold" href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        {{ __('Log Out') }}
-                    </a>
+                        <a class="p-3 text-decoration-none text-light bold" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            {{ __('Log Out') }}
+                        </a>
 
-                    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
-                        @csrf
-                    </form>
+                        <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+                            @csrf
+                        </form>
                     </div>
                 </div>
             </nav>
@@ -84,16 +83,18 @@
                     <div class="card category_web">
                         <div class="card-header solved" data-target="#problem_id_{{ $question->id }}" data-toggle="collapse" aria-expanded="false" aria-controls="problem_id_{{ $question->id }}">
                             {{ $question->titre }}
-                            <span class="badge">
-                                @php
-                                $userProfileId = Auth::user()->userProfile->id;
-                                $solvedSubmissionsCount = $question->submissions
-                                ->where('user_id', $userProfileId)
-                                ->where('solved', 1)
-                                ->count();
-                                echo $solvedSubmissionsCount > 0 ? 'solved' : '';
-                                @endphp
-                            </span>
+
+                            @php
+                            $userProfileId = Auth::user()->userProfile->id;
+                            $solvedSubmissionsCount = $question->submissions
+                            ->where('user_id', $userProfileId)
+                            ->where('solved', 1)
+                            ->count();
+                            @endphp
+
+                            @if($solvedSubmissionsCount > 0)
+                            <span class="badge">Solved </span>
+                            @endif
                             <span class="badge" style="background-color:#ef1d9b94">{{ $question->points }} points</span>
                             <span class="badge" style="background-color:#ef121b94">{{ $question->category }}</span>
                         </div>
@@ -104,12 +105,20 @@
                                     <h3 class="solvers">Solvers: <span class="solver_num">{{ $question->solved_by }}</span>
                                 </div>
                                 <p>{{ $question->description }}</p>
-<a target="_blank" href="{{ route('download.file', ['questionId' => $question->id]) }}" class="btn btn-outline-secondary btn-shadow">
-    <span class="fa fa-download mr-2"></span>Download
-</a>
+                                <a href="{{ route('download.file', ['questionId' => $question->id]) }}" class="btn btn-outline-secondary btn-shadow">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-download" viewBox="0 0 16 16">
+                                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+                                        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                                    </svg>
+                                    <span class="text-overflow">{{ Str::limit($question->file, 5) }}</span>
+
+                                </a>
+
 
                                 <a href="#" data-toggle="modal" data-target="#hint" data-cout="{{ $question->hint_point }}" title="Cliquez pour afficher l'indice" data-id="{{ $question->id }}" class="btn btn-outline-secondary hint-button btn-shadow">
-                                    <span class="far fa-lightbulb "></span>Hint<span class="badge" style="background-color:#f9aa1594">- {{ $question->hint_point }}</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-lightbulb" viewBox="0 0 16 16">
+                                        <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13a.5.5 0 0 1 0 1 .5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1 0-1 .5.5 0 0 1 0-1 .5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A5.984 5.984 0 0 1 2 6m6-5a5 5 0 0 0-3.479 8.592c.263.254.514.564.676.941L5.83 12h4.342l.632-1.467c.162-.377.413-.687.676-.941A5 5 0 0 0 8 1" />
+                                    </svg></span>Hint<span class="badge" style="background-color:#f9aa1594">- {{ $question->hint_point }}</span>
                                 </a>
 
                                 <form method="post" action="{{ route('check_flag') }}" enctype="multipart/form-data">
