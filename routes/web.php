@@ -43,6 +43,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/get-hint', [CtfController::class, 'hint'])->name('get-hint');
 Route::get('/leaderboard', [CtfController::class, 'leaderboard'])->name('leaderboard');
 Route::post('/store-question', [CtfController::class, 'storeQ'])->name('store.question');
+Route::get('/download-file/{questionId}', [CtfController::class, 'downloadFile'])->name('download.file');
+
 
 
 

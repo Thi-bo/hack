@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Console\Question\Question;
 
 class CtfController extends Controller
@@ -259,5 +260,23 @@ public function hint(Request $request) {
     }
 }
 
+ public function downloadFile($questionId)
+    {
+        try {
+            // Récupérer la question
+            $question = Questions::findOrFail($questionId);
 
+            // Vérifier si le fichier existe
+            if (Storage::disk('public')->exists("uploads/questions/{$question->file}")) {
+                // Télécharger le fichier
+                return response()->download(storage_path("app/public/uploads/questions/{$question->file}"));
+            } else {
+                // Gérer le cas où le fichier n'existe pas
+                return redirect()->back()->with('error', 'Le fichier associé à cette question n\'existe pas.');
+            }
+        } catch (\Exception $e) {
+            // Gérer l'exception ici (par exemple, journalisation, redirection avec un message d'erreur, etc.)
+            return redirect()->back()->with('error', 'Une erreur est survenue lors du téléchargement du fichier.');
+        }
+    }
 }

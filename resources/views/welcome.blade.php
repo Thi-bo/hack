@@ -46,6 +46,8 @@
                             <a href="{{ route('welcome') }}" class="p-3 text-decoration-none text-white bold">Home</a>
                             <a  class="p-3 text-decoration-none text-light bold">About</a>
                             <a href="{{route('leaderboard')}}"  class="p-3 text-decoration-none text-light bold">Hackerboard</a>
+                                                        <a href="{{route('questions')}}"  class="p-3 text-decoration-none text-light bold">Challenges</a>
+
                            <a href="{{route('login')}} "class="p-3 text-decoration-none text-light bold">Login</a>
                             <a href="{{route('register')}} "class="p-3 text-decoration-none text-light bold">Register</a>
                         </div>

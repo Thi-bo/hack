@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Hack CTF</title>
-        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap4-neon-glow.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap4-neon-glow.min.css') }}">
 
     <link rel='stylesheet' href='//cdn.jsdelivr.net/font-hack/2.020/css/hack.min.css'>
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/all.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/css/css.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/css.css') }}">
 
 
 </head>
@@ -26,23 +26,25 @@
         <div style="position: fixed;" class="glitch__img"></div>
     </div>
      <div class="navbar-dark text-white">
-            <div class="container">
-                <nav class="navbar px-0 navbar-expand-lg navbar-dark">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div class="navbar-nav">
-                            <a href="index.html" class="pl-md-0 p-3 text-decoration-none text-light">
-                                <h3 class="bold"><span class="color_danger">HACK</span><span class="color_white">CTF</span></h3>
-                            </a>
-                        </div>
-                      <div class="navbar-nav ml-auto">
+        <div class="container">
+            <nav class="navbar px-0 navbar-expand-lg navbar-dark">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a href="index.html" class="pl-md-0 p-3 text-decoration-none text-light">
+                            <h3 class="bold"><span class="color_danger">HACK</span><span class="color_white">CTF</span></h3>
+                        </a>
+                    </div>
+                    <div class="navbar-nav ml-auto">
 
-                            <a href="index.html" class="p-3 text-decoration-none text-white bold">Home</a>
-                            <a  class="p-3 text-decoration-none text-light bold">About</a>
-                            <a href="{{route('leaderboard')}}"  class="p-3 text-decoration-none text-light bold">Hackerboard</a>
-                            <a class="p-3 text-decoration-none text-light bold" href="{{ route('logout') }}"
+                            <a href="{{ route('welcome') }}" class="p-3 text-decoration-none text-white bold">Home</a>
+                        <a class="p-3 text-decoration-none text-light bold">About</a>
+                        <a href="{{route('leaderboard')}}" class="p-3 text-decoration-none text-light bold">Hackerboard</a>
+                            <a href="{{route('questions')}}"  class="p-3 text-decoration-none text-light bold">Challenges</a>
+
+                        <a class="p-3 text-decoration-none text-light bold" href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         {{ __('Log Out') }}
                     </a>
@@ -51,11 +53,11 @@
                         @csrf
                     </form>
                     </div>
-                    </div>
-                </nav>
+                </div>
+            </nav>
 
-            </div>
         </div>
+    </div>
     <div class="jumbotron bg-transparent mb-0 pt-3 radius-0">
         <div class="container">
             <div class="row">
@@ -93,9 +95,9 @@
                             </ul>
                             <div class="row text-center pt-5">
                                 <div class="col-xl-12">
-                                   <a href="{{route('questions')}} ">  <button class="btn btn-outline-danger btn-shadow px-3 my-2 ml-0 ml-sm-1 text-left typewriter" onclick="(function(){window.location.href='quests.html'})();">
-                                        <h4>LET THE HACKING BEGIN!</h4>
-                                    </button></a>
+                                    <a href="{{route('questions')}} "> <button class="btn btn-outline-danger btn-shadow px-3 my-2 ml-0 ml-sm-1 text-left typewriter" onclick="(function(){window.location.href='quests.html'})();">
+                                            <h4>LET THE HACKING BEGIN!</h4>
+                                        </button></a>
                                     <small id="registerHelp" class="mt-2 form-text text-muted">We expect each and every one of you to comply by the rules. Failure to do so might result in a permanent ban.</small>
                                 </div>
                             </div>

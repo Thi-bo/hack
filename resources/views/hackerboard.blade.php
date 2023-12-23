@@ -35,25 +35,25 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                        <a href="index.html" class="pl-md-0 p-3 text-decoration-none text-light">
-                            <h3 class="bold"><span class="color_danger">Hack</span><span class="color_white">CTF</span></h3>
-                        </a>
-                    </div>
+                   <div class="navbar-nav">
+                            <a href="{{ route('welcome') }}" class="pl-md-0 p-3 text-decoration-none text-light">
+                                <h3 class="bold"><span class="color_danger">HACK</span><span class="color_white">CTF</span></h3>
+                            </a>
+                        </div>
                     <div class="navbar-nav ml-auto">
 
-                        <a href="index.html" class="p-3 text-decoration-none text-white bold">Home</a>
+                            <a href="{{ route('welcome') }}" class="p-3 text-decoration-none text-white bold">Home</a>
                         <a class="p-3 text-decoration-none text-light bold">About</a>
                         <a href="{{route('leaderboard')}}" class="p-3 text-decoration-none text-light bold">Hackerboard</a>
-                        <a class="p-3 text-decoration-none text-light bold" href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        {{ __('Log Out') }}
-                    </a>
+                        <a href="{{route('questions')}}" class="p-3 text-decoration-none text-light bold">Challenges</a>
 
-                    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
-                        @csrf
-                    </form>
+                        <a class="p-3 text-decoration-none text-light bold" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            {{ __('Log Out') }}
+                        </a>
 
+                        <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+                            @csrf
+                        </form>
                     </div>
                 </div>
             </nav>
@@ -111,63 +111,63 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 
-   <script>
-    $(document).ready(function() {
-        var ctx = document.getElementById('scoresChart').getContext('2d');
+    <script>
+        $(document).ready(function() {
+            var ctx = document.getElementById('scoresChart').getContext('2d');
 
-        var data = {
-            labels: <?= json_encode($chartData['labels']) ?>,
-            datasets: [{
-                label: 'Scores',
-                data: <?= json_encode($chartData['data']) ?>,
-                backgroundColor: getGradientColors(<?= count($chartData['labels']) ?>),
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
-        };
+            var data = {
+                labels: <?= json_encode($chartData['labels']) ?>,
+                datasets: [{
+                    label: 'Scores',
+                    data: <?= json_encode($chartData['data']) ?>,
+                    backgroundColor: getGradientColors(<?= count($chartData['labels']) ?>),
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            };
 
-        var options = {
-            scales: {
-                y: {
-                    beginAtZero: true
+            var options = {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
-            }
-        };
+            };
 
-        var scoresChart = new Chart(ctx, {
-            type: 'bar',
-            data: data,
-            options: options,
-            plugins: [{
-                afterLayout: function(chart) {
-                    // Réduire la largeur des barres (ajuster la valeur 0.1 selon vos besoins)
-                    chart.data.datasets.forEach(function(dataset) {
-                        dataset.barPercentage = 0.1;
-                    });
-                }
-            }]
+            var scoresChart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: options,
+                plugins: [{
+                    afterLayout: function(chart) {
+                        // Réduire la largeur des barres (ajuster la valeur 0.1 selon vos besoins)
+                        chart.data.datasets.forEach(function(dataset) {
+                            dataset.barPercentage = 0.1;
+                        });
+                    }
+                }]
+            });
         });
-    });
 
-    // Fonction pour générer des couleurs dégradées
-    function getGradientColors(count) {
-        var colors = [];
-        for (var i = 0; i < count; i++) {
-            colors.push(getRandomColor());
+        // Fonction pour générer des couleurs dégradées
+        function getGradientColors(count) {
+            var colors = [];
+            for (var i = 0; i < count; i++) {
+                colors.push(getRandomColor());
+            }
+            return colors;
         }
-        return colors;
-    }
 
-    // Fonction pour générer une couleur aléatoire
-    function getRandomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
+        // Fonction pour générer une couleur aléatoire
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
         }
-        return color;
-    }
-</script>
+    </script>
 
 
 
