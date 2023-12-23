@@ -96,7 +96,12 @@
                             <span class="badge">Solved </span>
                             @endif
                             <span class="badge" style="background-color:#ef1d9b94">{{ $question->points }} points</span>
-                            <span class="badge" style="background-color:#ef121b94">{{ $question->category }}</span>
+                            @php
+                            $colors = ['#ef121b94', '#007bff94', '#28a74594', '#ffc10794', '#17a2b894', '#dc354594'];
+                            $randomColor = $colors[array_rand($colors)];
+                            @endphp
+
+                            <span class="badge" style="background-color:{{ $randomColor }}">{{ $question->category }}</span>
                         </div>
                         <div id="problem_id_{{ $question->id }}" class="collapse card-body">
                             <blockquote class="card-blockquote">
