@@ -53,7 +53,7 @@ Route::get('/leaderboard', [CtfController::class, 'leaderboard'])->name('leaderb
 
     Route::get('/admin/login_hacktivits@@2022', [AdminController::class, 'login']);
     Route::post('/admin/login_hacktivits@@2022', [AdminController::class, 'store'])->name('admin.login');
-
+Route::post('/deconnexion', [AdminController::class, 'deconnexion'])->name('admin.deconnexion');
 
 //Middleware admin
 

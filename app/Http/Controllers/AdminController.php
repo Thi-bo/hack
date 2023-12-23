@@ -38,4 +38,15 @@ return view('admin.login');
     public function dashboard(Request $request){
         return view('admin.dashboard');
     }
+
+    public function deconnexion(Request $request){
+
+            Auth::logout();
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect('/admin/login_hacktivits@@2022');
+
+    }
 }
