@@ -48,49 +48,55 @@
                                     {{ session('status') }}
                                 </div>
                             @endif
-                            <form action="{{ route('store.question') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('challenges.update', $challenge->id) }}" method="post"
+                                enctype="multipart/form-data">
                                 @csrf
-
+                                @method('PUT')
                                 <div class="mb-3">
                                     <label for="titre" class="form-label">Titre : </label>
-                                    <input type="text" class="form-control" id="titre" name="titre" required>
+                                    <input type="text" class="form-control" id="titre" name="titre"
+                                        value="{{ $challenge->titre ?? '' }}" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="points" class="form-label">Points : </label>
-                                    <input type="text" class="form-control" id="points" name="points" required>
+                                    <input type="text" class="form-control" id="points" name="points"
+                                        value="{{ $challenge->points ?? '' }}" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="description" class="form-label">Description :</label>
                                     <input type="text" class="form-control" id="description" name="description"
-                                        required>
+                                        value="{{ $challenge->description ?? '' }}" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="level" class="form-label">Level:</label>
-                                    <input type="text" class="form-control" id="level" name="level" required>
+                                    <input type="text" class="form-control" id="level" name="level"
+                                        value="{{ $challenge->level ?? '' }}" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="hint" class="form-label">Hint : </label>
-                                    <input type="text" class="form-control" id="hint" name="hint" required>
+                                    <input type="text" class="form-control" id="hint" name="hint"
+                                        value="{{ $challenge->hint ?? '' }}" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="hint_point" class="form-label">Hint Point :</label>
                                     <input type="text" class="form-control" id="hint_point" name="hint_point"
-                                        required>
+                                        value="{{ $challenge->hint_point ?? '' }}" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="file" class="form-label">Fichier:</label>
-                                    <input type="file" class="form-control" id="file" name="file" required>
+                                    <input type="file" class="form-control" id="file" name="file" >
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="category" class="form-label">Category:</label>
-                                    <input type="text" class="form-control" id="category" name="category" required>
+                                    <input type="text" class="form-control" id="category" name="category"
+                                        value="{{ $challenge->category ?? '' }}" required>
                                 </div>
 
                                 {{-- <div class="mb-3">
@@ -101,10 +107,10 @@
                                 <div class="mb-3">
                                     <label for="flag" class="form-label">Flag:</label>
                                     <input type="text" class="form-control" id="flag" name="flag"
-                                        required>
+                                        value="{{ $challenge->flag ?? '' }}" required>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Ajouter</button>
+                                <button type="submit" class="btn btn-primary">Editer</button>
                             </form>
                         </div>
                     </div>

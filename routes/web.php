@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CtfController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ChallengesController;
@@ -63,6 +64,8 @@ Route::middleware('isAdmin')->group(function () {
     Route::get('/admin/dashboard_hacktivits@@2022', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
     Route::resource('challenges', ChallengesController::class);
+
+    Route::resource('user', UserController::class);
 
     Route::post('/store-question', [CtfController::class, 'storeQ'])->name('store.question');
 });

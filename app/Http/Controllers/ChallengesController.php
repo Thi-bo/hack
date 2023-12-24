@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Questions;
 use Illuminate\Http\Request;
 
 class ChallengesController extends Controller
@@ -12,7 +13,8 @@ class ChallengesController extends Controller
     public function index()
     {
         //
-        return view('admin.challenges');
+        $challenges = Questions::all();
+        return view('admin.challenges', compact('challenges'));
     }
 
     /**
@@ -33,7 +35,7 @@ class ChallengesController extends Controller
         //
 
        // dd($request);
-       
+
     }
 
     /**
@@ -50,6 +52,9 @@ class ChallengesController extends Controller
     public function edit(string $id)
     {
         //
+       // dd($id);
+       $challenge = Questions::find($id);
+       return view('admin.challenges_edit', compact('challenge'));
     }
 
     /**
@@ -58,6 +63,26 @@ class ChallengesController extends Controller
     public function update(Request $request, string $id)
     {
         //
+
+        $challenge = Questions::findOrFail($id);
+
+        $challenge->fill($request->only([
+            'titre', 'points', 'description', 'level', 'hint', 'hint_point', 'file', 'category', 'flag'
+        ]));
+
+        if ($request->hasFile('file')) {
+            $uploadedFile = $request->file('file');
+            $fileName = $uploadedFile->getClientOriginalName();
+            $path = $uploadedFile->store('challenges_img', 'public');
+            $challenge->file = $fileName;
+            $challenge->path = $path;
+
+        }
+
+        $challenge->save();
+
+        return redirect()->route('challenges.index')->with('status', 'Challenge mis à jour avec succès!');
+
     }
 
     /**
