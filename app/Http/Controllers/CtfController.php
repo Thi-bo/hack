@@ -25,7 +25,7 @@ class CtfController extends Controller
 
     private function tmer()
     {
-        $start = "2022-12-22 00:00:00";
+        $start = "2022-12-24 00:00:00";
         $starttime = new DateTime($start);
 
         // Calculer le nombre total de secondes écoulées depuis minuit
@@ -34,7 +34,7 @@ class CtfController extends Controller
 
     private function timer()
     {
-        $start = "2023-12-22 00:00:00";
+        $start = "2023-12-24 00:00:00";
         # dd($start);
         return new DateTime($start);
     }
@@ -45,13 +45,14 @@ class CtfController extends Controller
         $starttime = $this->timer();
         $diff = $now->diff($starttime);
         $endtime = $this->timer();
-        $endtime->add(new DateInterval('PT48H')); // Add 48 hours to the start time
+        $endtime->add(new DateInterval('P3DT19H'));
 
         $total_seconds = $diff->s + $diff->i * 60 + $diff->h * 3600 + $diff->d * 86400; // Calculate total seconds including days
         #  dd($total_seconds);
 
         $sub_time = gmdate("j \d\a\y\s H:i:s", $total_seconds); // Format the difference as days, hours, minutes, seconds
 
+        dd($endtime);
 
         return [
             'now' => $now,
@@ -70,6 +71,7 @@ class CtfController extends Controller
         $now = $result['now'];
         $endtime = $result['endtime'];
 
+        dd($endtime);
 
         // Comparaison des dates avec DateTime
         $interval = $now->diff($endtime);
@@ -88,7 +90,7 @@ class CtfController extends Controller
             // Utilisation de la vue Blade pour afficher les données
             return View('questions', compact('questions', 'submission', 'userprofile'));
         } else {
-            return response()->json(['message' => 'Fin de challenge']);
+            return View('questions')->with('status', 'error')->with('message', 'Ce challenge est finis');
         }
     }
 
@@ -255,28 +257,27 @@ class CtfController extends Controller
         }
     }
 
-    
+
     public function downloadFile($questionId)
-{
-    try {
-        // Récupérer la question
-        $question = Questions::findOrFail($questionId);
+    {
+        try {
+            // Récupérer la question
+            $question = Questions::findOrFail($questionId);
 
-        // Construire le chemin complet du fichier
-        $filePath = storage_path("app/public/{$question->path}");
+            // Construire le chemin complet du fichier
+            $filePath = storage_path("app/public/{$question->path}");
 
-        // Vérifier si le fichier existe
-        if (file_exists($filePath)) {
-            // Télécharger le fichier
-            return response()->download($filePath, $question->file);
-        } else {
-            // Gérer le cas où le fichier n'existe pas
-            return redirect()->back()->with('error', 'Le fichier associé à cette question n\'existe pas.');
+            // Vérifier si le fichier existe
+            if (file_exists($filePath)) {
+                // Télécharger le fichier
+                return response()->download($filePath, $question->file);
+            } else {
+                // Gérer le cas où le fichier n'existe pas
+                return redirect()->back()->with('error', 'Le fichier associé à cette question n\'existe pas.');
+            }
+        } catch (\Exception $e) {
+            // Gérer l'exception ici (par exemple, journalisation, redirection avec un message d'erreur, etc.)
+            return redirect()->back()->with('error', 'Une erreur est survenue lors du téléchargement du fichier.');
         }
-    } catch (\Exception $e) {
-        // Gérer l'exception ici (par exemple, journalisation, redirection avec un message d'erreur, etc.)
-        return redirect()->back()->with('error', 'Une erreur est survenue lors du téléchargement du fichier.');
     }
-}
-
 }
