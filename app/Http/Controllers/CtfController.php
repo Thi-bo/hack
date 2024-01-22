@@ -332,7 +332,7 @@ class CtfController extends Controller
                 'soutienOrganisateur' =>  $request->soutienOrganisateur,
                 'exeprienceGlobale' =>  $request->exeprienceGlobale,
                 'commentaires' =>  $request->commentaires,
-                'nomFichier'  =>  $name . '' . Auth()->user()->name,
+                'nomFichier'  =>  Auth()->user()->name.'_'.'writeups_'.$name,
                 'pathFichier'  =>  $path,
                 'user_id'  =>  Auth()->user()->id,
                 'user_name'  =>  Auth()->user()->name,
