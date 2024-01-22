@@ -2,7 +2,7 @@
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-
+                <div class="sb-sidenav-menu-heading">Core</div>
                 <a class="nav-link" href="{{ route('admin.dashboard') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard
@@ -69,9 +69,9 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                     Tables
                 </a> --}}
-                <a class="nav-link" href="{{ route('user.index') }}">
+                <a class="nav-link" href="tables.html">
                     <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                   Users
+                   Utilisateurs
                 </a>
                 <a class="nav-link" href="{{ route('challenges.index') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>

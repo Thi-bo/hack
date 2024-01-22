@@ -97,7 +97,7 @@
                         <a href="{{ route('leaderboard') }}"
                             class="p-3 text-decoration-none text-light bold">Hackerboard</a>
                         <a href="{{ route('login') }} "class="p-3 text-decoration-none text-light bold">Login</a>
-                        <a href="{{ route('register') }} "class="p-3 text-decoration-none text-light bold">Register</a>
+                        {{-- <a href="{{ route('register') }} "class="p-3 text-decoration-none text-light bold">Register</a> --}}
                     </div>
                 </div>
             </nav>
@@ -142,8 +142,8 @@
                             >
                             <h4>Login</h4>
                         </button>
-                        <small id="registerHelp" class="mt-3 form-text text-muted">Not Registered? <a
-                                href="{{ route('register') }}">Register here</a></small>
+                  {{--       {{-- <small id="registerHelp" class="mt-3 form-text text-muted">Not Registered? <a
+                                href="{{ route('register') }}">Register here</a></small> --}} 
                     </div>
                 </div>
             </form>

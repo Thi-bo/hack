@@ -13,15 +13,16 @@ return new class extends Migration
     {
         Schema::create('submissions', function (Blueprint $table) {
             $table->string('id', 8)->unique();
-  $table->string('user_id');
+            $table->string('user_id');
             $table->foreign('user_id')->references('id')->on('user_profiles');
-  $table->string('question_id');
-            $table->foreign('question_id')->references('id')->on('questions');        $table->integer('curr_score');
-        $table->string('sub_time');
-        $table->boolean('hinted')->default(false);
+            $table->string('question_id');
+            $table->foreign('question_id')->references('id')->on('questions');
+            $table->integer('curr_score');
+            $table->string('sub_time');
+            $table->boolean('hinted')->default(false);
 
-        $table->boolean('solved');
-        $table->timestamps();
+            $table->boolean('solved');
+            $table->timestamps();
         });
     }
 

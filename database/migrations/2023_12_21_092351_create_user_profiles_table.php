@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('user_profiles', function (Blueprint $table) {
             $table->string('id', 8)->unique();
-  $table->string('user_id');
-            $table->foreign('user_id')->references('id')->on('users');    
-                $table->integer('score')->default(0);
-                  $table->integer('totlesub')->default(0);
-                $table->string('last_sub_time')->nullable();
-        $table->timestamps();
+            $table->string('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('score')->default(0);
+            $table->integer('totlesub')->default(0);
+            $table->string('last_sub_time')->nullable();
+            $table->timestamps();
         });
     }
 

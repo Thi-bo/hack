@@ -55,24 +55,10 @@
                             <a href="{{ route('challenges.create') }}">Créer un challenge</a>
                         </li>
                     </ol>
-                    @if (session('status'))
-                                <div class="alert alert-success">
-                                    {{ session('status') }}
-                                </div>
-                            @endif
                     <div class="row">
-                       @foreach ($challenges as $challenge)
-                       <div class="col-xl-3 col-md-6">
-                        <div class="card bg-primary text-white mb-4">
-                            <div class="card-body">{{ $challenge->titre }} </div>
+                        <div class="col-lg-6 col-md-6 mx-auto">
 
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="{{ route('challenges.edit',$challenge->id ) }}"> Editer </a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
                         </div>
-                    </div>
-                       @endforeach
                     </div>
 
                 </div>

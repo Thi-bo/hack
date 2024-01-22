@@ -44,8 +44,9 @@
 
                             <a href="{{ route('welcome') }}" class="p-3 text-decoration-none text-white bold">Home</a>
                             <a   href="{{ route('about') }}"  class="p-3 text-decoration-none text-light bold">About</a>
-                        <a href="{{route('leaderboard')}}" class="p-3 text-decoration-none text-light bold">Hackerboard</a>
+                        {{-- <a href="{{route('leaderboard')}}" class="p-3 text-decoration-none text-light bold">Hackerboard</a> --}}
                         <a href="{{route('questions')}}" class="p-3 text-decoration-none text-light bold">Challenges</a>
+                        <a href="{{route('writeups')}}"  class="p-3 text-decoration-none text-light bold">Writeups</a>
 
                         <a class="p-3 text-decoration-none text-light bold" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             {{ __('Log Out') }}

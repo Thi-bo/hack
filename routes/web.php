@@ -49,6 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/get-hint', [CtfController::class, 'hint'])->name('get-hint');
     Route::get('/leaderboard', [CtfController::class, 'leaderboard'])->name('leaderboard');
     Route::get('/download-file/{questionId}', [CtfController::class, 'downloadFile'])->name('download.file');
+    Route::get('/uploadWriteups', [CtfController::class, 'writeups'])->name('writeups');
+    Route::post('/uploadWriteups', [CtfController::class, 'uploadWriteups'])->name('uploadWriteups');
+
 });
 
 //Route connexion admin

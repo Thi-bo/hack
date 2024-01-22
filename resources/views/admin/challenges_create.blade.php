@@ -33,7 +33,7 @@
         @include('admin.layouts.navbar')
     </nav>
     <div id="layoutSidenav">
-        @include('admin.layouts.sidebar')
+      @include('admin.layouts.sidebar')
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
@@ -44,10 +44,10 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 mx-auto">
                             @if (session('status'))
-                                <div class="alert alert-success">
-                                    {{ session('status') }}
-                                </div>
-                            @endif
+                            <div class="alert alert-success">
+                                {{ session('status') }}
+                            </div>
+                        @endif
                             <form action="{{ route('store.question') }}" method="post" enctype="multipart/form-data">
                                 @csrf
 
@@ -63,8 +63,7 @@
 
                                 <div class="mb-3">
                                     <label for="description" class="form-label">Description :</label>
-                                    <input type="text" class="form-control" id="description" name="description"
-                                        required>
+                                    <input type="text" class="form-control" id="description" name="description" required>
                                 </div>
 
                                 <div class="mb-3">
@@ -85,7 +84,8 @@
 
                                 <div class="mb-3">
                                     <label for="file" class="form-label">Fichier:</label>
-                                    <input type="file" class="form-control" id="file" name="file" required>
+                                    <input type="file" class="form-control" id="file" name="file"
+                                        required>
                                 </div>
 
                                 <div class="mb-3">
@@ -100,8 +100,7 @@
 
                                 <div class="mb-3">
                                     <label for="flag" class="form-label">Flag:</label>
-                                    <input type="text" class="form-control" id="flag" name="flag"
-                                        required>
+                                    <input type="text" class="form-control" id="flag" name="flag" required>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">Ajouter</button>

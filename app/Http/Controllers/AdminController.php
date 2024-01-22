@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\Questions;
-use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -38,10 +36,7 @@ return view('admin.login');
     }
 
     public function dashboard(Request $request){
-
-        $nb_utilisateurs = User::all()->count();
-        $challenges = Questions::all()->count();
-        return view('admin.dashboard', compact('nb_utilisateurs', 'challenges'));
+        return view('admin.dashboard');
     }
 
     public function deconnexion(Request $request){
