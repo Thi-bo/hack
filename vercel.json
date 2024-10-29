@@ -18,7 +18,7 @@
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "true",
-        "APP_URL": "https://athenatech.vercel.app/",
+        "APP_URL": "https://hack-ctf.vercel.app/",
         "APP_KEY": "base64:+zbtX5Bb1E5f5fw7L7HKrzWPDuFBo7PWi5zgcu4Ayk0=",
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
@@ -29,6 +29,6 @@
         "CACHE_DRIVER": "array",
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie",
-        "ASSET_URL": "https://athenatech.vercel.app/"
+        "ASSET_URL": "https://hack-ctf.vercel.app/"
     }
 }
