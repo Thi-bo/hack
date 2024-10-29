@@ -53,6 +53,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Hack CTF</title>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
@@ -109,27 +110,26 @@
         <div class="container">
             <x-auth-session-status class="mb-4" :status="session('status')" />
             <form method="POST" action="{{ route('login') }}">
-                @csrf
+                @csrf  <!-- Token CSRF -->
                 <div class="row">
                     <div class="col-xl-8">
-                        <h1 class="display-1 bold color_white content__title">HACK CTF<span
-                                class="vim-caret">&nbsp;</span></h1>
+                        <h1 class="display-1 bold color_white content__title">HACK CTF<span class="vim-caret">&nbsp;</span></h1>
                         <p class="text-grey text-spacey hackerFont lead mb-5">
                             Type your credentials to conquer the world
                         </p>
                         <div class="row hackerFont">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="email"
-                                        placeholder="hack@gmail.com" type="email" name="email"
-                                        :value="old('email')" required autofocus autocomplete="username">
+                                    <input type="email" class="form-control" id="email"
+                                        placeholder="hack@gmail.com" name="email"
+                                        value="{{ old('email') }}" required autofocus autocomplete="username">
                                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" id="password" placeholder="Password"
-                                        id="password" name="password" required autocomplete="current-password">
-                                    <small id="passHelp" class="form-text text-muted">Make sure nobody's behind
-                                        you</small>
+                                    <input type="password" class="form-control" id="password"
+                                        placeholder="Password" name="password"
+                                        required autocomplete="current-password">
+                                    <small id="passHelp" class="form-text text-muted">Make sure nobody's behind you</small>
                                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                 </div>
                             </div>
@@ -138,12 +138,9 @@
                 </div>
                 <div class="row">
                     <div class="col-xl-8">
-                        <button class="btn btn-outline-danger btn-shadow px-3 my-2 ml-0 ml-sm-1 text-left typewriter"
-                            >
+                        <button type="submit" class="btn btn-outline-danger btn-shadow px-3 my-2 ml-0 ml-sm-1 text-left typewriter">
                             <h4>Login</h4>
                         </button>
-                  {{--       {{-- <small id="registerHelp" class="mt-3 form-text text-muted">Not Registered? <a
-                                href="{{ route('register') }}">Register here</a></small> --}} 
                     </div>
                 </div>
             </form>
