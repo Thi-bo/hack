@@ -17,7 +17,7 @@
     ],
     "env": {
         "APP_ENV": "production",
-        "APP_DEBUG": "false",
+        "APP_DEBUG": "true",
         "APP_URL": "https://hack-ctf.vercel.app/",
         "APP_KEY": "base64:+zbtX5Bb1E5f5fw7L7HKrzWPDuFBo7PWi5zgcu4Ayk0=",
         "APP_CONFIG_CACHE": "/tmp/config.php",
@@ -29,6 +29,9 @@
         "CACHE_DRIVER": "array",
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie",
-        "ASSET_URL": "https://hack-ctf.vercel.app/"
+        "ASSET_URL": "https://hack-ctf.vercel.app/",
+        "DB_SCHEMA": "public",
+        "DB_CONNECTION": "pgsql",
+        "DATABASE_URL": "postgres://postgres.uhopyevppyvluuyjfkjn:dIRXnygNKDeA3Hxu@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require&supa=base-pooler.x"
     }
 }
