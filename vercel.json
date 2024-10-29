@@ -17,7 +17,7 @@
     ],
     "env": {
         "APP_ENV": "production",
-        "APP_DEBUG": "true",
+        "APP_DEBUG": "false",
         "APP_URL": "https://hack-ctf.vercel.app/",
         "APP_KEY": "base64:+zbtX5Bb1E5f5fw7L7HKrzWPDuFBo7PWi5zgcu4Ayk0=",
         "APP_CONFIG_CACHE": "/tmp/config.php",
