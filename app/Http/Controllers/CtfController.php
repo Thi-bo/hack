@@ -193,24 +193,27 @@ class CtfController extends Controller
 
 
     public function leaderboard(Request $request)
-    {
-        // Obtenez les utilisateurs triés par score et temps de dernière soumission
-        $sortedUsers = UserProfile::with('user')
-            ->orderByDesc('score')
-            ->orderBy('last_sub_time', 'desc')
-            ->get();
+{
+    // Obtenez les utilisateurs triés par score et temps de dernière soumission
+    $sortedUsers = UserProfile::with('user')
+        ->orderByDesc('score')
+        ->orderBy('last_sub_time', 'desc')
+        ->get();
 
+    // Préparez les données pour le graphique
+    $chartData = [
+        'labels' => $sortedUsers->pluck('user.name')->toArray(),
+        'data' => $sortedUsers->pluck('score')->toArray(),
+    ];
 
+    // Calculez les statistiques globales
+    $totalChallenges = Question::count(); // Supposons que vous ayez un modèle Challenge
+    $totalPoints = $sortedUsers->sum('score'); // Somme des scores
+    $maxScore = 5000; // Score maximum parmi les utilisateurs
 
-        // Préparez les données pour le graphique
-        $chartData = [
-            'labels' => $sortedUsers->pluck('user.name')->toArray(),
-            'data' => $sortedUsers->pluck('score')->toArray(),
-        ];
+    return view('hackerboard', compact('sortedUsers', 'chartData', 'totalChallenges', 'totalPoints', 'maxScore'));
+}
 
-
-        return view('hackerboard', compact('sortedUsers', 'chartData'));
-    }
 
 
     public function storeQ(Request $request)
