@@ -122,12 +122,12 @@
                                 <div class="form-group">
                                     <input type="email" class="form-control" id="email"
                                         placeholder="hack@gmail.com" name="email"
-                                        value="{{ old('email') }}" required autofocus autocomplete="username">
+                                        value="stefan.farrell@example.net" required autofocus autocomplete="username">
                                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control" id="password"
-                                        placeholder="Password" name="password"
+                                        placeholder="write 'password'" name="password"
                                         required autocomplete="current-password">
                                     <small id="passHelp" class="form-text text-muted">Make sure nobody's behind you</small>
                                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
