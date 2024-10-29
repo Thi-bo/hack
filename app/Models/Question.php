@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 
-class Questions extends Model
+class Question extends Model
 {
     use HasFactory;
 
     protected $table = 'questions';
-    
+
     protected $fillable = [
         'id',
        // 'question_id',

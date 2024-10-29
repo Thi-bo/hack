@@ -60,7 +60,7 @@ var strings = [
   "Loading content",
   "Page rendered",
   "Starting display manager",
-  "WELCOME TO LAKSHYA CTF INC 2020",
+  "WELCOME TO HACK CTF INC 2023",
   "Initializing..."
 ];
 
@@ -72,24 +72,24 @@ var repeat = 0;
 function addLog() {
   var row = createLog('ok', count);
   preloader.appendChild(row);
-  
+
   goScrollToBottom();
-  
+
   count++;
-  
+
   if (repeat == 0) {
     if (count > 3) {
       delay = 300;
     }
-    
+
     if (count > 6) {
       delay = 100;
     }
-    
+
     if (count > 8) {
       delay = 50;
     }
-    
+
     if (count > 10) {
       delay = 10;
     }
@@ -98,7 +98,7 @@ function addLog() {
       delay = 10;
     }
   }
-  
+
   if (count < strings.length) {
     setTimeout(function() {
       return addLog();
@@ -113,33 +113,33 @@ function addLog() {
 
 function createLog(type, index) {
   var row = document.createElement('div');
-  
+
   var spanStatus = document.createElement('span');
   spanStatus.className = type;
   spanStatus.innerHTML = type.toUpperCase();
-  
-  var message = (index != null) 
-              ? strings[index] 
+
+  var message = (index != null)
+              ? strings[index]
               : 'kernel: Initializing...';
 
-  if(index == null) 
+  if(index == null)
   {
     var preloader = $('#preloader');
     jQuery(preloader).fadeOut("slow");
     jQuery("#main").fadeIn("slow");
   }
-  
+
   var spanMessage = document.createElement('span');
   spanMessage.innerHTML = message;
-  
+
   row.appendChild(spanStatus);
   row.appendChild(spanMessage);
-  
+
   return row;
 }
 
 function goScrollToBottom() {
-  $(document).scrollTop($(document).height()); 
+  $(document).scrollTop($(document).height());
 }
 
 function setCookie(cname,cvalue,exdays) {
@@ -149,20 +149,19 @@ function setCookie(cname,cvalue,exdays) {
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
-// below method reference https://stackoverflow.com/questions/5639346/what-is-the-shortest-function-for-reading-a-cookie-by-name-in-javascript/25490531#25490531
 function getCookie(a) {
   var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
   return b ? b.pop() : '';
 }
 
 function checkCookie() {
-  var user=getCookie("visited"); 
-  if (user == 1) {   
-    setCookie("visited", 1, 30); //this will update the cookie      
-    jQuery("#main").fadeIn("slow"); 
-  } else {  
-    addLog();      
-    setCookie("visited", 1, 30);   
+  var user=getCookie("visited");
+  if (user == 1) {
+    setCookie("visited", 1, 30); //this will update the cookie
+    jQuery("#main").fadeIn("slow");
+  } else {
+    addLog();
+    setCookie("visited", 1, 30);
 
   }
 }

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Questions;
+use App\Models\Question;
 use App\Models\Submission;
 use App\Models\User;
 use App\Models\UserProfile;
-use App\Models\Writeups;
+use App\Models\Writeup;
 use Carbon\Carbon;
 use DateInterval;
 use DateTime;
@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\Console\Question\Question;
 
 class CtfController extends Controller
 
@@ -45,14 +44,15 @@ class CtfController extends Controller
         $now = new DateTime(); // Utiliser DateTime pour la date actuelle
         $starttime = $this->timer();
         $diff = $now->diff($starttime);
+
+        // Ajouter 100 ans au lieu de 48 heures
         $endtime = $this->timer();
-        $endtime->add(new DateInterval('PT48H')); // Add 48 hours to the start time
+        $endtime->add(new DateInterval('P100Y')); // Add 100 years to the start time
 
-        $total_seconds = $diff->s + $diff->i * 60 + $diff->h * 3600 + $diff->d * 86400; // Calculate total seconds including days
-        #  dd($total_seconds);
+        $total_seconds = $diff->s + $diff->i * 60 + $diff->h * 3600 + $diff->d * 86400; // Calculer le nombre total de secondes, jours inclus
 
-        $sub_time = gmdate("j \d\a\y\s H:i:s", $total_seconds); // Format the difference as days, hours, minutes, seconds
-
+        // Formater la différence en jours, heures, minutes, secondes
+        $sub_time = gmdate("j \d\a\y\s H:i:s", $total_seconds);
 
         return [
             'now' => $now,
@@ -80,10 +80,10 @@ class CtfController extends Controller
             $users = Auth::user();
             $user = User::where('id', $users->id)->first();
             $userprofile = UserProfile::where('user_id', $users->id)->first();
-            $questions = Questions::get();
+            $questions = Question::get();
             $submission = Submission::where('user_id', $users->id)->orderBy('question_id')->get();
             # dd($userprofile);
-            # dd($questions->submissions());
+            # dd($Question->submissions());
             #dd($submission);
 
             // Utilisation de la vue Blade pour afficher les données
@@ -101,7 +101,7 @@ class CtfController extends Controller
 
             $Qid = $request->input('Qid');
             $flag = $request->input('flag');
-            $quest = Questions::findOrFail($Qid);
+            $quest = Question::findOrFail($Qid);
 
             $solved = Submission::where('question_id', $quest->id)
                 ->where('user_id', $userProfile->id)
@@ -143,7 +143,7 @@ class CtfController extends Controller
 
     public function hint(Request $request)
     {
-        $question = Questions::find($request->input('id'));
+        $question = Question::find($request->input('id'));
         $hint = $question->hint;
         $hintsPoint = $question->hint_point;
 
@@ -236,7 +236,7 @@ class CtfController extends Controller
                 $name = $file->getClientOriginalName();
             }
 
-            $question = Questions::create([
+            $question = Question::create([
                 'points' => $validatedData['points'],
                 'titre' => $validatedData['titre'],
                 'description' => $validatedData['description'],
@@ -261,7 +261,7 @@ class CtfController extends Controller
     {
         try {
             // Récupérer la question
-            $question = Questions::findOrFail($questionId);
+            $question = Question::findOrFail($questionId);
 
             // Construire le chemin complet du fichier
             $filePath = storage_path("app/public/{$question->path}");
@@ -314,14 +314,14 @@ class CtfController extends Controller
 
         $user_name = Auth()->user()->name;
 
-        $isWriteups = Writeups::where('user_name', $user_name)->first();
+        $isWriteups = Writeup::where('user_name', $user_name)->first();
 
         if($isWriteups){
             return redirect()->back()->with('status', 'Vous avez déjà envoyé vos informations.');
         }
 
         else{
-            $writeups = Writeups::create([
+            $writeups = Writeup::create([
                 'faciliteAcces' => $request->faciliteAcces,
                 'interfaceUtilisateur' => $request->interfaceUtilisateur,
                 'noteQuestion' =>  $request->noteQuestion,

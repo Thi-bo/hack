@@ -41,7 +41,7 @@
 
                             <a href="{{ route('welcome') }}" class="p-3 text-decoration-none text-white bold">Home</a>
                             <a   href="{{ route('about') }}"  class="p-3 text-decoration-none text-light bold">About</a>
-                        {{-- <a href="{{route('leaderboard')}}" class="p-3 text-decoration-none text-light bold">Hackerboard</a> --}}
+                        <a href="{{route('leaderboard')}}" class="p-3 text-decoration-none text-light bold">Hackerboard</a>
                             <a href="{{route('questions')}}"  class="p-3 text-decoration-none text-light bold">Challenges</a>
                             <a href="{{route('writeups')}}"  class="p-3 text-decoration-none text-light bold">Writeups</a>
                         <a class="p-3 text-decoration-none text-light bold" href="{{ route('logout') }}"
@@ -77,7 +77,7 @@
                                 <li>There is no particular order of solving the questions.</li>
                                 <li>Judging of the round will be based on two parameters. The first is the score of the team and second is the time required. </li>
                                 <li>Ranks can be viewed on the leaderboard page. The leaderboard time is updated everytime a submission is made.</li>
-                                <li>Flags found are of the format <span class="vim-caret">lakshya_ctf{some_text}.</span> Some of the files may contain just the inner text within the brackets. Make sure you submit it in the format specified. Flag text is not
+                                <li>Flags found are of the format <span class="vim-caret">hack_ctf{some_text}.</span> Some of the files may contain just the inner text within the brackets. Make sure you submit it in the format specified. Flag text is not
                                     case sensitive.</li>
                                 <li>This is a competitive environment with the aim of learning cyber security and ethical hacking. Please do not share the flags & solutions with others.</li>
                                 <li>Internet access is granted. Feel free to explore and read about the concept behind the problem. </li>

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('id', 8)->unique();
             $table->string('points');
             $table->string('titre');
-            $table->string('description');
+            $table->text('description');
             $table->string('level');
             $table->string('hint')->nullable();
             $table->string('hint_point')->default = 'None';

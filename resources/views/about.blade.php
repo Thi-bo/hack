@@ -40,12 +40,12 @@
                         <div class="navbar-nav ml-auto">
                             <a href="{{ route('welcome') }}" class="p-3 text-decoration-none text-white bold">Home</a>
                             <a   href="{{ route('about') }}"  class="p-3 text-decoration-none text-light bold">About</a>
-                            {{-- <a href="{{route('leaderboard')}}"  class="p-3 text-decoration-none text-light bold">Hackerboard</a> --}}
+                            <a href="{{route('leaderboard')}}"  class="p-3 text-decoration-none text-light bold">Hackerboard</a>
                                                         <a href="{{route('questions')}}"  class="p-3 text-decoration-none text-light bold">Challenges</a>
                                                         <a href="{{route('writeups')}}"  class="p-3 text-decoration-none text-light bold">Writeups</a>
 
                            <a href="{{route('login')}} "class="p-3 text-decoration-none text-light bold">Login</a>
-                            {{-- <a href="{{route('register')}} "class="p-3 text-decoration-none text-light bold">Register</a> --}}
+                            <a href="{{route('register')}} "class="p-3 text-decoration-none text-light bold">Register</a>
                         </div>
                     </div>
                 </nav>
@@ -69,14 +69,14 @@
                             A capture the flag (CTF) contest is a special kind of cybersecurity competition designed to challenge its participants to solve computer security problems and/or capture and defend computer systems. The game consists of a series of challenges where participants
                             must reverse engineer, break, hack, decrypt, or do whatever it takes to solve the challenge. The challenges are all set up with the intent of being hacked, making it an excellent, legal way to get hands-on experience.
                             <h5 class="bold color_white pt-3">
-                                About Lakshya CTF
+                                About Hack CTF
                             </h5>
-                            Lakshya CTF is a sub event of PICT's <a href="https://pictinc.org">Impetus and Concepts</a> mega event where students partcipate from all over the world!<br> Out aim is about spreading the importance of cybersecurity in today's
+                            Hack CTF is a sub event . Impetus and Concepts</a> mega event where students partcipate from all over the world!<br> Out aim is about spreading the importance of cybersecurity in today's
                             community. Each and every person should be aware of different vulnerabilities in systems as well as how to protect onselves agains cyber attacks<br> We believe gamification is the best technique to teach oneself about cybersecurity.
                             <h5 class="bold color_white pt-3">
-                                Who can play Lakshya CTF
+                                Who can play Hack CTF
                             </h5>
-                            Lakshya CTF is mainly focused at students who are undergraduates.
+                            Hack CTF is mainly focused at students who are undergraduates.
                             <div class="row text-center pt-5">
                                 <div class="col-xl-12">
                                    <a href="{{ route('welcome') }}"><button class="btn btn-outline-danger btn-shadow px-3my-2 ml-0 ml-sm-1 text-left typewriter" >
