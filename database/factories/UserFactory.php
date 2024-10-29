@@ -22,7 +22,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => bcrypt('password'),
-            'isAdmin' => false,
+            'isAdmin' => "FALSE",
             'remember_token' => Str::random(10),
             'created_at' => $this->faker->dateTimeBetween('-6 months', 'now'),
             'updated_at' => function (array $attributes) {
@@ -36,7 +36,7 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'id' => 'ADM' . Str::random(5),
-                'isAdmin' => true,
+                'isAdmin' => "TRUE",
                 'email' => 'admin.' . $attributes['email'],
             ];
         });

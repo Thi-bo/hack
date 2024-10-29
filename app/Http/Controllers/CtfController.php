@@ -196,9 +196,9 @@ class CtfController extends Controller
 {
     // Obtenez les utilisateurs triés par score et temps de dernière soumission
     $sortedUsers = UserProfile::with('user')
-        ->orderByDesc('score')
-        ->orderBy('last_sub_time', 'desc')
-        ->get();
+    ->orderByDesc('score')
+    ->orderBy('last_sub_time', 'desc')
+    ->get();
 
     // Préparez les données pour le graphique
     $chartData = [

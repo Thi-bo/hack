@@ -19,8 +19,9 @@ class Submission extends Model
 
      protected $primaryKey = 'id';
 
-    public $incrementing = false;
-
+     protected $keyType = 'string';  // Indique que la clé primaire est une string
+     public $incrementing = false;   // Désactive l'auto-incrémentation
+    
     protected static function boot()
     {
         parent::boot();

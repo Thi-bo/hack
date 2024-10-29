@@ -76,6 +76,11 @@ return [
             'prefix_indexes' => true,
             'search_path' => 'public',
             'sslmode' => 'prefer',
+            'schema' => env('DB_SCHEMA', 'public'),
+            'options' => [
+        PDO::ATTR_EMULATE_PREPARES => true,  // Ajoutez cette ligne
+    ],
+
         ],
 
         'sqlsrv' => [

@@ -74,7 +74,7 @@ class MassDataSeeder extends Seeder
         $users->each(function ($user) {
             if ($user->user_profile) {
                 $totalScore = Submission::where('user_id', $user->user_profile->id)
-                    ->where('solved', true)
+                    ->where('solved', 'true')
                     ->sum('curr_score');
 
                 $lastSubmission = Submission::where('user_id', $user->user_profile->id)
@@ -93,7 +93,7 @@ class MassDataSeeder extends Seeder
         // Mettre à jour le nombre de résolutions pour chaque question
         $questions->each(function ($question) {
             $solvedCount = Submission::where('question_id', $question->id)
-                ->where('solved', true)
+                ->where('solved', 'true')
                 ->count();
 
             $question->update([
